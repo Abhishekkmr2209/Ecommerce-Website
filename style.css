@@ -130,6 +130,13 @@ body{
     background:#088178;
 
 }
+#mobile{
+    display:none;
+    align-items:center;
+}
+#close{
+    display:none;
+}
 /* Home Page*/
 
 #hero{
@@ -463,15 +470,15 @@ footer .logo{
     margin-bottom:30px;
 }
 footer h4{
-    font-size:16px;
+    font-size:14px;
     padding-bottom:20px;
 }
 footer p{
-    font-size:14px;
+    font-size:13px;
     margin:0 0 8px 0;
 }
 footer a{
-    font-size:15px;
+    font-size:13px;
     text-decoration:none;
     color:#222;
     margin-bottom: 10px;
@@ -500,4 +507,66 @@ footer a:hover{
 footer .copyright{
     width:100%;
     text-align:center;
+}   
+
+/* Home Page Responsiveness */
+
+
+
+
+
+/* Media Queries */
+
+@media (max-width:799px){
+    #navbar {
+    display: flex;
+    flex-direction:column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position:fixed;
+    top:0;
+    right:-300px;
+    height:100vh;
+    width:300px;
+    background-color:#e3e6f3;
+    box-shadow:0 40px 60px rgba(0,0,0,0.1);
+    padding:80px 0 0 10px;
+    transition:0.3s;
+    }
+
+    #navbar.active{
+        right:0;
+    }
+    #navbar li{
+        margin-bottom:25px;
+    }
+    #mobile{
+        display:flex;
+        align-items:center;
+    }
+    #mobile i{
+        color:#1a1a1a;
+        font-size:24px;
+        padding-left:20px;
+        
+    }
+    #close{
+        display:initial;
+        position:absolute;
+        top:30px;
+        left:30px;
+        color:#222;
+        font-size:24px;
+    }
+    #lg-bag{
+        display:none;
+    }
+    #hero {
+        padding: 0 80px;
+        background-position: top 30% right 30%;
+        height: 70vh;
+        
+}
+    
+    
 }
