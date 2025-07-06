@@ -12,3 +12,7 @@ if(close){
         nav.classList.remove('active');
     })
 }
+
+/* hamburger menu ends here */
+
+

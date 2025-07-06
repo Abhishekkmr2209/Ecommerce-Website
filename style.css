@@ -528,6 +528,27 @@ footer .copyright{
 #page-header p{
     color:#fff;
 }
+/* Pagination container and buttons */
+
+#pagination{
+   display:flex;
+   justify-content:center;
+   align-items:center;
+   gap:2px;
+}
+
+#pagination .paginationButton{
+    border:none;
+    background-color:#088178;
+    border:1px solid rgb(160,160,160);
+    color:#fff;
+    font-weight:600;
+    padding:15px 20px;
+    border-radius:4px;
+    font-size:16px;
+}
+
+
 
 
 /* Home Page Responsiveness */
