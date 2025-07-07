@@ -1,5 +1,7 @@
 import products from './products.js';
 
+/* Hamburger Menu */
+
 const bar = document.getElementById('bar');
 const nav = document.getElementById('navbar');
 const close = document.getElementById('close');
@@ -15,14 +17,14 @@ if(close){
     })
 }
 
-/* hamburger menu ends here */
 
-/* pagination */
+/* pagination functionality and dynamic creation of product cards*/
 
 const proContainer = document.querySelector('.pro-container');
 const paginationButtonContainer = document.getElementById('pagination');
 const perPage = 4;
 const buttonRefs = [];
+let currentPage = 1;
 paginationButtonContainer.classList.add('pagination');
 
 function displayProducts(currentPage){
@@ -57,6 +59,8 @@ function displayProducts(currentPage){
         <h5>${product.productName}</h5>
         
         <h4>${product.price}</h4>
+        </div>
+        <a href="#"><i class="fa-solid fa-cart-shopping cart"></i></a>
         
         
         `;
@@ -74,19 +78,38 @@ function setupPagination(){
     for(let i=1;i<=numberOfButtons;i++){
         const button = document.createElement('button');
         button.textContent = i;
-        const currentPage = i;
+        
 
         button.addEventListener('click',()=>{
+            currentPage = i;
             displayProducts(currentPage);
+            updateActiveButton();
         });
         button.classList.add('paginationButton');
         paginationButtonContainer.appendChild(button);
+        buttonRefs.push(button);
     }
 }
+function updateActiveButton(){
+    buttonRefs.forEach((button,index)=>{
+        if(index+1 ===currentPage){
+            button.classList.add('active');
+        }else{
+            button.classList.remove('active');
+        }
+    });
+  
+
+}
+
+
 
 window.addEventListener('load',()=>{
     setupPagination();
     displayProducts(1);
+    updateActiveButton();
+    
+   
 });
 
 
