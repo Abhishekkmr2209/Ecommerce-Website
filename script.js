@@ -22,6 +22,8 @@ if(close){
 
 const proContainer = document.querySelector('.pro-container');
 const paginationButtonContainer = document.getElementById('pagination');
+const shopMain = document.querySelector('#shopMain');
+const prodetails = document.querySelector('#prodetails');
 const perPage = 4;
 const buttonRefs = [];
 let currentPage = 1;
@@ -67,8 +69,63 @@ function displayProducts(currentPage){
 
         proCard.children[1].insertBefore(starDiv,proCard.children[1].children[2]);
         proContainer.appendChild(proCard);
+
+        proCard.addEventListener('click',()=>{
+        shopMain.classList.add('hidePage'); 
+        prodetails.classList.remove('hidePage');
+        productThumbnail(proCard);
+        });
     });
 }
+/* Product thumbnail and description */
+/* The product page */
+
+
+function productThumbnail(proCard){
+    const productImage = document.createElement('div');
+    productImage.classList.add('productImage');
+
+    const mainImage = document.createElement('img');
+    mainImage.src = proCard.querySelector('img').src;
+
+
+    productImage.appendChild(mainImage);
+
+    //Similar Image Container
+    const productSimilar = document.createElement('div');
+    productSimilar.classList.add('productSimilar');
+
+    const randomImages = getRandomProductImages(4,mainImage.src);
+
+    randomImages.forEach(imgSrc =>{
+        const smallImg = document.createElement('img');
+        smallImg.src=imgSrc;
+
+        smallImg.addEventListener('click',()=>{
+            // Change main image when thumbnail clicked
+            mainImage.src= imgSrc;
+        });
+        productSimilar.appendChild(smallImg);
+
+    });
+    
+    productImage.appendChild(productSimilar);
+    prodetails.appendChild(productImage);
+    
+
+}
+    function getRandomProductImages(count,excludeSrc){
+        const filtered = products.map(p=>p.img).filter(src => src !== excludeSrc);
+
+        //Shuffle (Fisher-Yates Shuffle)
+        for (let i = filtered.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [filtered[i], filtered[j]] = [filtered[j], filtered[i]];
+        }
+        return filtered.slice(0,count);
+    }
+
+/* Pagination */
 
 function setupPagination(){
     const numberOfButtons = Math.ceil(products.length/perPage);
@@ -102,8 +159,6 @@ function updateActiveButton(){
 
 }
 
-
-
 window.addEventListener('load',()=>{
     setupPagination();
     displayProducts(1);
@@ -111,6 +166,11 @@ window.addEventListener('load',()=>{
     
    
 });
+
+
+
+
+
 
 
 
