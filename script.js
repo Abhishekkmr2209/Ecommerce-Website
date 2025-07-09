@@ -54,6 +54,8 @@ function displayProducts(currentPage){
         /* proCard Section */
         const proCard = document.createElement('div');
         proCard.classList.add('proCard');
+        proCard.dataset.proThumbnailDescription =`${product.proThumbnailDescription}`;
+
         proCard.innerHTML = `
         <img src=${product.img} />
         <div class="des">
@@ -110,7 +112,36 @@ function productThumbnail(proCard){
     });
     
     productImage.appendChild(productSimilar);
+
+    // productDescription 
+    const productDescription = document.createElement('div'); 
+    productDescription.classList.add('productDescription'); 
+
+    const proCardDes = proCard.querySelector('.des');
+
+    productDescription.innerHTML = `
+            <h4>Home/T-Shirt/${proCardDes.querySelector('span').textContent}</h4>
+            <h4>${proCardDes.querySelector('h5').textContent}</h4>
+            <h1>${proCardDes.querySelector('h4').textContent}</h1>
+            <select class="selectSize" name="size" >
+                <option value="" disabled selected hidden>Select Size</option>
+                <option value="small">Small</option>
+                <option value="large">Large</option>
+                <option value="extra large">XL</option>
+                <option value="extra extra large">XXL</option>
+            </select>
+            <form>
+                <input type="text" min="1" max="4"/>
+                <button>Add to Cart</button>
+            </form>
+            <h2>Product Details</h2>
+            <p>${proCard.dataset.proThumbnailDescription}</p>
+           
+    `;
+
+    
     prodetails.appendChild(productImage);
+    prodetails.appendChild(productDescription);
     
 
 }
