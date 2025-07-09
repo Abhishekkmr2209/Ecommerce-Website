@@ -35,13 +35,30 @@ function displayProducts(currentPage){
 
     proContainer.innerHTML ="";
 
+    //Creating an array to reference each proCard
+    const currentProCardArray = [];
+
+    /*  Creating and Inserting filter Element*/
+    const filterButton = document.createElement('i');
+    filterButton.classList.add('fa-solid','fa-filter','filterButton');
+    filterButton.setAttribute('title','Filter Products based on price');
+
+    shopMain.appendChild(filterButton);
+
+    filterButton.addEventListener('click',()=>{
+        filterCard(currentProCardArray);
+    });
+
+    //  Array for each page
     const currentItems = products.slice(start,end);
+
     
 
     currentItems.forEach((product)=>{
         /* Review Stars Section */
         const numberOfStars = product.star;
         const starDiv = document.createElement('div');
+
         
         
         
@@ -69,21 +86,49 @@ function displayProducts(currentPage){
         
         `;
 
-        proCard.children[1].insertBefore(starDiv,proCard.children[1].children[2]);
+        const proCardDes = proCard.querySelector('.des');
+        proCardDes.insertBefore(starDiv,proCardDes.querySelector('h4'));
         proContainer.appendChild(proCard);
+        currentProCardArray.push(proCard);
+
 
         proCard.addEventListener('click',()=>{
         shopMain.classList.add('hidePage'); 
         prodetails.classList.remove('hidePage');
         productThumbnail(proCard);
         });
+
+        
     });
+    
+
+  
 }
-/* Product thumbnail and description */
-/* The product page */
+    // Filtering the page based on cost
+    function filterCard(currentProCardArray){
+
+        proContainer.innerHTML ="";
+        const sorted = [...currentProCardArray].sort((a,b)=>{
+            const priceA = parseFloat(a.children[1].children[3].textContent.replace(/[^0-9.]/g, ''));
+            const priceB = parseFloat(b.children[1].children[3].textContent.replace(/[^0-9.]/g, ''));
+            return priceA - priceB;
+        });
+        sorted.forEach((proCard)=>{
+            proContainer.appendChild(proCard);
+        });
+        
+    }
+    
+
+
+    /* Product thumbnail and description 
+       The product page */
 
 
 function productThumbnail(proCard){
+
+    prodetails.innerHTML = "";
+
     const productImage = document.createElement('div');
     productImage.classList.add('productImage');
 
@@ -131,7 +176,7 @@ function productThumbnail(proCard){
                 <option value="extra extra large">XXL</option>
             </select>
             <form>
-                <input type="text" min="1" max="4"/>
+                <input type="number" min="1" max="4"/>
                 <button>Add to Cart</button>
             </form>
             <h2>Product Details</h2>
@@ -139,10 +184,20 @@ function productThumbnail(proCard){
            
     `;
 
+    /* Creating a closing button ( X ) */
+    
+    const close = document.createElement('i');
+    close.classList.add('fa-solid','fa-xmark','iClose');
+
+    close.addEventListener('click',()=>{
+        shopMain.classList.remove('hidePage'); 
+        prodetails.classList.add('hidePage');
+    });
+
     
     prodetails.appendChild(productImage);
     prodetails.appendChild(productDescription);
-    
+    prodetails.appendChild(close);
 
 }
     function getRandomProductImages(count,excludeSrc){
