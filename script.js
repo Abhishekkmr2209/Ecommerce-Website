@@ -26,33 +26,36 @@ const shopMain = document.querySelector('#shopMain');
 const prodetails = document.querySelector('#prodetails');
 const perPage = 4;
 const buttonRefs = [];
+let currentProCardArray = []; // shared across functions
 let currentPage = 1;
 paginationButtonContainer.classList.add('pagination');
 
 function displayProducts(currentPage){
+    
     const start = (currentPage-1)*perPage;
     const end = start + perPage;
 
     proContainer.innerHTML ="";
 
     //Creating an array to reference each proCard
-    const currentProCardArray = [];
+    currentProCardArray = [];
 
     /*  Creating and Inserting filter Element*/
+    if(!document.querySelector('.filterButton')){
     const filterButton = document.createElement('i');
     filterButton.classList.add('fa-solid','fa-filter','filterButton');
     filterButton.setAttribute('title','Filter Products based on price');
 
     shopMain.appendChild(filterButton);
-
     filterButton.addEventListener('click',()=>{
         filterCard(currentProCardArray);
     });
 
+}
+    
+    
     //  Array for each page
     const currentItems = products.slice(start,end);
-
-    
 
     currentItems.forEach((product)=>{
         /* Review Stars Section */
@@ -101,16 +104,14 @@ function displayProducts(currentPage){
         
     });
     
-
-  
 }
     // Filtering the page based on cost
     function filterCard(currentProCardArray){
-
+       
         proContainer.innerHTML ="";
         const sorted = [...currentProCardArray].sort((a,b)=>{
-            const priceA = parseFloat(a.children[1].children[3].textContent.replace(/[^0-9.]/g, ''));
-            const priceB = parseFloat(b.children[1].children[3].textContent.replace(/[^0-9.]/g, ''));
+            const priceA = parseFloat(a.querySelector('.des h4').textContent.replace(/[^0-9.]/g, ''));
+            const priceB = parseFloat(b.querySelector('.des h4').textContent.replace(/[^0-9.]/g, ''));
             return priceA - priceB;
         });
         sorted.forEach((proCard)=>{
