@@ -530,14 +530,14 @@ footer .copyright{
 }
 /* Pagination container and buttons */
 
-#pagination{
-   display:flex;
-   justify-content:center;
-   align-items:center;
-   gap:2px;
+.pagination{
+     display:flex;
+     justify-content:center;
+     align-items:center;
+     gap:2px;
 }
 
-#pagination .paginationButton{
+.paginationButton{
     border:none;
     background-color:#088178;
     border:1px solid rgb(160,160,160);
@@ -547,6 +547,201 @@ footer .copyright{
     border-radius:4px;
     font-size:16px;
 }
+.paginationButton:hover{
+        background-color: #0A998C;
+
+}
+.paginationButton.active{
+        background-color:#066b64;
+}
+/* proCard here */
+.pro-container .proCard{
+    width:23%;
+    min-width:250px;
+    padding:10px 12px;
+    border:1px solid #cce7d0;
+    border-radius:25px;
+    cursor:pointer;
+    box-shadow:20px 20px 30px rgba(0,0,0,0.02);
+    margin:15px 0;
+    transition:0.2s ease;
+    position:relative;
+}
+
+.pro-container .proCard:hover{
+    box-shadow:20px 20px 30px rgba(0,0,0,0.06);
+}
+.pro-container .proCard img{
+    width:100%;
+    border-radius:20px;
+}
+
+.pro-container .proCard .des{
+    text-align:start;
+    padding:10px 0;
+}
+
+.pro-container .proCard .des span{
+    color:#606063;
+    font-size:12px;
+}
+.pro-container .proCard .des h5{
+    padding-top:7px;
+    color:#1a1a1a;
+    font-size:14px;
+}
+
+.pro-container .proCard .des i{
+    font-size:12px;
+    color:rgb(243,181,25);
+}
+
+.pro-container .proCard .des h4{
+    padding-top: 7px;
+    font-size: 15px;
+    font-weight:700;
+    color:#088178;
+}
+
+.pro-container .proCard .cart{
+    height:40px;
+    width:40px;
+    line-height:40px;
+    background-color:#e8f6ea;
+    border-radius:50px;
+    color:#088178;
+    border:1px solid #cce7d0;
+    font-weight:600;
+    position:absolute;
+    bottom: 20px;
+    right: 10px;
+}
+
+/* Product Description and shopPageMain display */
+
+#shopMain.hidePage,#prodetails.hidePage{
+    display:none;
+}
+#shopMain{
+    position:relative;
+}
+#shopMain .filterButton{
+    background-color: white;
+    border: 1px solid #0f766e;
+    color: #0f766e;
+    padding:10px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size:24px;
+}
+ #shopMain .filterButton:hover{
+    background-color: #0f766e;
+    color: white;
+    transform: scale(1.1);
+}
+#prodetails{
+    display:flex;
+    gap:20px;
+    font-weight:400;
+    position:relative;
+}
+#prodetails .iClose{
+    position:absolute;
+    top:5%;
+    right:5%;
+    color:#fff;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:24px;
+    width:42px;
+    height:42px;
+    background-color:#088178;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+#prodetails .iClose:hover {
+    background-color: #066b64;
+    transform: scale(1.1);
+}
+
+#prodetails .productImage{
+    display:flex;
+    flex-direction:column;
+    width:40%;
+    
+}
+#prodetails .productImage img:first-child{
+    margin-bottom:10px;
+}
+#prodetails .productImage .productSimilar{
+    display:flex;
+    width:100%;
+    justify-content:space-between;
+}
+#prodetails .productImage .productSimilar img{
+    width:23%;
+}
+
+.productDescription{
+    padding-top:40px;
+}
+
+.productDescription h4{
+    margin-bottom:20px;
+    font-weight:600;
+}
+.productDescription h1{
+    font-weight:600;
+}
+
+.productDescription .selectSize{
+    padding:5px;
+    font-weight:500;
+}
+
+.productDescription form{
+    display:flex;
+    justify-content:flex-start;
+    padding-top:10px;
+    gap:12px;
+}
+
+.productDescription form input{
+    width:7%;
+    height:4vh;
+}
+.productDescription form button{
+    width:18%;
+    background-color:#088178;
+    color:#fff;
+    border:1px solid rgb(150,150,150);
+    border-radius:3px;
+    font-weight:600;
+}
+.productDescription h2{
+    margin-top:20px;
+    font-weight:600;
+}
+
+.productDescription p{
+    width:80%;
+    text-align:justify;
+    font-weight:600;
+} 
+
+
+
 
 
 
@@ -641,6 +836,26 @@ footer .copyright{
     #newsletter .form {
     width: 70%;
     }
+
+    /* Shop Page */
+
+    .pro-container .proCard {
+     margin: 15px ;
+    }    
+    /*productDescription (no change  in productImage) */ 
+    .productDescription {
+    padding-top:0;
+    }
+
+    .productDescription form input {
+    width: 12%;
+    height: 4vh;
+    }
+    .productDescription form button {
+    width: 25%;
+    }
+    
+
 }
 
 /* Media Query For Small Screen Devices */
