@@ -32,6 +32,7 @@ function pagination(){
         button.textContent = i;
         button.addEventListener('click',()=>{
             currentPage=currPage;
+            //document.querySelector('#header').children[0].click();
             displayBlog(currentPage,perPage);
         });
         }
@@ -107,7 +108,22 @@ function displayBlog(currentPage,perPage){
         //Creating anchor 
         const contRead = document.createElement('a');
         contRead.href="#";
-        contRead.textContent = "CONTINUE READING..."
+        contRead.textContent = "CONTINUE READING...";
+
+        //Adding event listener to anchor
+        
+        contRead.addEventListener('click',(e)=>{
+            e.preventDefault();
+            
+            //Toggle visibility class
+            blogReadMore.classList.toggle('conReadingText');
+            
+            //Check if it's visible or hidden based on class
+            const isHidden = blogReadMore.classList.contains('conReadingText');
+
+            //Update anchor text accordingly
+            contRead.textContent = isHidden ? 'CONTINUE READING...' : 'READ LESS...';
+        });
         
         //Appending it to descriptionDiv
         descriptionDiv.appendChild(contRead);
@@ -119,6 +135,12 @@ function displayBlog(currentPage,perPage){
         //Appending Date
         blogCard.appendChild(dateElement);
 
+    });
+
+    //Moving on top on every reload or paginationButton clicking
+    window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
     });
 
     
