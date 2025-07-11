@@ -47,7 +47,8 @@ function displayProducts(currentPage){
     filterButton.setAttribute('title','Filter Products based on price');
 
     shopMain.appendChild(filterButton);
-    filterButton.addEventListener('click',()=>{
+    filterButton.addEventListener('click',(e)=>{
+        e.stopPropagation();
         filterCard(currentProCardArray);
     });
 
@@ -212,7 +213,7 @@ function productThumbnail(proCard){
         return filtered.slice(0,count);
     }
 
-/* Pagination */
+// Pagination 
 
 function setupPagination(){
     const numberOfButtons = Math.ceil(products.length/perPage);
@@ -245,6 +246,9 @@ function updateActiveButton(){
   
 
 }
+
+
+
 
 window.addEventListener('load',()=>{
     setupPagination();
