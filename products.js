@@ -266,7 +266,7 @@ const products = [
         img:'img/products/n1.jpg',
         brand:'Chola and Sons.',
         productName:'Blustone Shirts',
-        price:'$36',
+        price:'$27',
         star:3,
         proThumbnailDescription:`Crafted from fine poplin cotton, this Chola shirt provides a sharp look with clean lines and stretch comfort. The slim-fit silhouette and muted color palette make it an essential choice for office-ready wardrobes.`
     },
@@ -275,7 +275,7 @@ const products = [
         img:'img/products/n3.jpg',
         brand:'Calvin Klein',
         productName:'BeachWear',
-        price:'$36',
+        price:'$30',
         star:3,
         proThumbnailDescription:`This full-sleeve shirt from Calvin Klein offers a tailored slim fit and soft brushed cotton for all-day wear. With refined check patterns, button-down collar, and contrast cuffs, it’s a standout piece for smart-casual ensembles.`
     }
