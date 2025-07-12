@@ -750,8 +750,79 @@ footer .copyright{
     font-weight:600;
 } 
 
+/* Blog Page */
+#page-header-blog{
+    background-image:url('img/banner/b19.jpg');
+    width:100%;
+    height:40vh;
+    background-size:cover;
+    display:flex;
+    justify-content:center;
+    flex-direction:column;
+    text-align:center;
+    padding:14px;
+    
+}
 
+#page-header-blog h2,
+#page-header-blog p{
+    color:#fff;
+}
 
+.blogContainer{
+    padding:150px 150px 0 150px;
+    display:flex;
+    flex-direction:column;
+}
+
+.blogContainer .blogCard{
+    display:flex;
+    align-items:center;
+    width:100%;
+    margin-bottom:100px;
+    position:relative;
+}
+.blogContainer .blogCard .blogImageDiv{
+    min-width:50%;
+    margin-right:40px;
+    
+}
+.blogContainer .blogCard .blogImageDiv img{
+    width:100%;
+    height:300px;
+    object-fit:cover;
+}
+.blogCard h1{
+    position:absolute;
+    top:-38px;
+    left:0;
+    font-size:70px;
+    color:#c9cbce;
+    z-index:-9;
+}
+.blogCard .description a{
+    text-decoration:none;
+    color:#088178;
+    font-weight:700;
+}
+
+    
+.blogCard .description p span {
+    display: block;
+    opacity: 1;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, opacity 0.5s ease;
+}
+
+.blogCard .description p span.conReadingText {
+    opacity: 0;
+    max-height: 0;
+}
+.blogCard .description p span.active {
+    opacity: 1;
+    max-height: 500px; /* adjust as needed to fit full content */
+}
 
 
 
@@ -864,6 +935,12 @@ footer .copyright{
     .productDescription form button {
     width: 25%;
     }
+
+    /* Blog Page */
+    .blogCard .description p,
+    .blogCard .description p span{
+        text-align:justify;
+    }
     
 
 }
@@ -949,6 +1026,26 @@ footer .copyright{
     #prodetails .iClose {
     top: 0.5%;
     right: 0.5%;
+    }
+
+    /* Blog Page */
+    #page-header-blog {
+    height: 25vh;
+    }
+    .blogContainer .blogCard{
+    flex-wrap:wrap;
+    margin-bottom:80px;
+    }
+    .blogContainer {
+    padding:60px 20px 0 20px;
+    }
+    .blogContainer .blogCard .blogImageDiv {
+    width: 100%;
+    margin-right:0;
+    }
+    .blogContainer .blogCard .blogImageDiv img {
+    width: 100%;
+    object-fit:cover;   
     }
     
     
