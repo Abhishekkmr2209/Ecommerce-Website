@@ -117,6 +117,7 @@ function displayBlog(currentPage,perPage){
             
             //Toggle visibility class
             blogReadMore.classList.toggle('conReadingText');
+            blogReadMore.classList.toggle('active');
             
             //Check if it's visible or hidden based on class
             const isHidden = blogReadMore.classList.contains('conReadingText');
@@ -139,7 +140,7 @@ function displayBlog(currentPage,perPage){
 
     //Moving on top on every reload or paginationButton clicking
     window.scrollTo({
-    top: 0,
+    top:0,
     behavior: 'smooth'
     });
 
