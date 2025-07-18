@@ -103,10 +103,13 @@
                 <h4>Sign Up For Newsletters</h4>
                 <p>Get E-mail updates about out latest shop and <span>special offers.</span></p>
             </div>
-            <div class="form">
-                <input type="text" placeholder="Your email address" />
-                <button class="normal">Sign Up</button>
-            </div>
+            <form action = "https://formsubmit.co/abhi.yadav8911@gmail.com" method="POST" class="form">
+                <input type="email" name='email' placeholder="Your email address" required/>
+                <button class="normal" type="submit">Sign Up</button>
+                <!-- Hidden inputs for Form Submit features-->
+                <input type="hidden" name="_autoresponse" value="Thanks for subscribing to our newsletter!" />
+                <input type="hidden" name="_template" value="box" />
+            </form>
         </section>
 
         <footer class="section-p1">
