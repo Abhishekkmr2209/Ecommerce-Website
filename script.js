@@ -90,18 +90,26 @@ function displayProducts(currentPage){
         
         `;
 
+        //Appending
         const proCardDes = proCard.querySelector('.des');
         proCardDes.insertBefore(starDiv,proCardDes.querySelector('h4'));
         proContainer.appendChild(proCard);
         currentProCardArray.push(proCard);
 
-
+        //Adding event Listener to proCard
         proCard.addEventListener('click',()=>{
         shopMain.classList.add('hidePage'); 
         prodetails.classList.remove('hidePage');
         productThumbnail(proCard);
         });
 
+        //Adding event listener to proCard addToCart Icon
+        const addToCartIcon = proCard.querySelector('a .fa-cart-shopping');
+        addToCartIcon.addEventListener('click',(e)=>{
+            e.preventDefault();
+            e.stopPropagation();  //will stop the event from bubbling to parent
+            cartCountDisplay(0);
+        });
         
     });
     
@@ -131,6 +139,7 @@ function productThumbnail(proCard){
 
     prodetails.innerHTML = "";
 
+    //Container for both the main image and similar images container
     const productImage = document.createElement('div');
     productImage.classList.add('productImage');
 
@@ -144,8 +153,10 @@ function productThumbnail(proCard){
     const productSimilar = document.createElement('div');
     productSimilar.classList.add('productSimilar');
 
+    //Generating random images and adding it to productSimilar container
     const randomImages = getRandomProductImages(4,mainImage.src);
 
+    
     randomImages.forEach(imgSrc =>{
         const smallImg = document.createElement('img');
         smallImg.src=imgSrc;
@@ -170,7 +181,7 @@ function productThumbnail(proCard){
             <h4>Home/T-Shirt/${proCardDes.querySelector('span').textContent}</h4>
             <h4>${proCardDes.querySelector('h5').textContent}</h4>
             <h1>${proCardDes.querySelector('h4').textContent}</h1>
-            <select class="selectSize" name="size" >
+            <select class="selectSize" name="size"  >
                 <option value="" disabled selected hidden>Select Size</option>
                 <option value="small">Small</option>
                 <option value="large">Large</option>
@@ -178,7 +189,7 @@ function productThumbnail(proCard){
                 <option value="extra extra large">XXL</option>
             </select>
             <form>
-                <input type="number" min="1" max="4"/>
+                <input type="number" min="1" max="4" placeholder="Quantity" required/>
                 <button>Add to Cart</button>
             </form>
             <h2>Product Details</h2>
@@ -191,17 +202,79 @@ function productThumbnail(proCard){
     const close = document.createElement('i');
     close.classList.add('fa-solid','fa-xmark','iClose');
 
+    //Adding event listener to close button
     close.addEventListener('click',()=>{
         shopMain.classList.remove('hidePage'); 
         prodetails.classList.add('hidePage');
     });
 
-    
+   
+
+    //Appending elements to prodetails
     prodetails.appendChild(productImage);
     prodetails.appendChild(productDescription);
     prodetails.appendChild(close);
 
+     //Adding event listener to Add to Cart Button
+    const addToCartButton = document.querySelector('.productDescription form button');
+    const count = document.querySelector('.productDescription form input');
+    const form = document.querySelector('.productDescription form'); 
+    addToCartButton.addEventListener('click',(e)=>{
+        e.preventDefault();
+
+        //Checking validity
+        if(form.reportValidity()){
+        cartCountDisplay(count.value); //count.value is the value of input field of type string
+        //cartItems(proCard,count.value); //updating local storage for cart page
+        }
+    });
+
+    
+
 }
+    //cartCountDisplay function to display number of products added to cart
+    function cartCountDisplay(count){
+        let input = parseInt(count);
+        //Assign input value 1 if clicked on the addToCart icon in proCard
+        if(input===0){
+            input=1;
+        }
+
+        //Updating if needed  the localStorage with total no of items
+        if(!localStorage.getItem('numberOfItems')){    
+        localStorage.setItem('numberOfItems',input);
+        }else{
+        const currNumberOfItems = parseInt(localStorage.getItem('numberOfItems'));
+        const totalItems = currNumberOfItems + input;
+
+        localStorage.setItem('numberOfItems',totalItems);
+        }
+
+        const cartIcon = document.querySelectorAll('#header span');
+        cartIcon.forEach((spanElement)=>{
+            if(spanElement.classList.contains('cartCount')){
+            spanElement.classList.remove('cartCount');
+            }
+            spanElement.textContent=localStorage.getItem('numberOfItems');
+        });
+        
+
+
+}
+    //Upon Page refreshing cart items count
+    function cartItemsCountDisplay(){
+        if(!localStorage.getItem('numberOfItems')){
+            //Do nothing
+        }else{
+            const cartIcon = document.querySelectorAll('#header span');
+            cartIcon.forEach((spanElement)=>{
+            spanElement.classList.remove('cartCount');
+            spanElement.textContent=localStorage.getItem('numberOfItems');
+        });
+        }
+    }
+
+    //function to generate random images
     function getRandomProductImages(count,excludeSrc){
         const filtered = products.map(p=>p.img).filter(src => src !== excludeSrc);
 
@@ -235,6 +308,7 @@ function setupPagination(){
         buttonRefs.push(button);
     }
 }
+    // function to highlight active button
 function updateActiveButton(){
     buttonRefs.forEach((button,index)=>{
         if(index+1 ===currentPage){
@@ -247,16 +321,16 @@ function updateActiveButton(){
 
 }
 
-
-
-
 window.addEventListener('load',()=>{
     setupPagination();
     displayProducts(1);
     updateActiveButton();
+    cartItemsCountDisplay(); //To display cart items count upon page loading
     
    
 });
+
+
 
 
 
