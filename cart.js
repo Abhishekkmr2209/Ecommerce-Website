@@ -19,15 +19,102 @@ if(close){
 function cartItemsDisplay(){
     const tbody = document.querySelector('#cart tbody');  //Accessing <tbody> element 
 
-    //Creating a remove element which will be appended to all the rows
-    const iElement = document.createElement('i');
-    iElement.classList.add('fa-regular',' fa-circle-xmark');
+    //Getting the cartItems object
+    const cartItems = JSON.parse(localStorage.getItem('cartItems'));
 
-    const anchorElement = document.createElement('a');
-    anchorElement.href="#";
+    //Displaying empty cart message
+    if(!cartItems || Object.keys(cartItems).length===0){
+        tbody.innerHTML = `<tr><td colspan="6"><b>Your cart is Empty.</b> </td></tr>`;
+        return;
+    }
 
-    //Appending iElement to anchor Element 
-    anchorElement.appendChild(iElement);
+    //Looping through cartItems
+    Object.values(cartItems).forEach((product)=>{
+
+        //Create a table row
+        const  tableRow = document.createElement('tr');
+
+        //Creating a remove element 
+        const iElement = document.createElement('i');
+        iElement.classList.add('fa-regular','fa-circle-xmark');
+
+        const anchorElement = document.createElement('a');
+        anchorElement.href="#";
+
+        //Appending iElement to anchor Element 
+        anchorElement.appendChild(iElement);
+
+
+        //All <td> element will be created
+        //1st <td> element
+        const tdElement1 = document.createElement('td');
+        tdElement1.appendChild(anchorElement);
+
+        //Appending 1st  <td> element to <tr>
+        tableRow.appendChild(tdElement1);
+
+        //Creating second <td> element containing imgSrc
+        const tdElement2 = document.createElement('td');
+        
+        //Creating imgElement
+        const imgElement = document.createElement('img');
+        imgElement.src = product.img;
+        
+        //Appending 2nd <td> element to <tr>
+        tdElement2.appendChild(imgElement);
+        tableRow.appendChild(tdElement2);
+
+        //Creating 3rd <td> element containing product name
+        const tdElement3 = document.createElement('td');
+        tdElement3.textContent = product.name;
+
+        //Appending 3rd<td> element to <tr>
+        tableRow.appendChild(tdElement3);
+
+        //Creating 4th <td> element containing product name
+        const tdElement4 = document.createElement('td');
+        tdElement4.textContent = product.price;
+
+        //Appending 4th<td> element to <tr>
+        tableRow.appendChild(tdElement4);
+
+        //Creating 5th <td> element
+        const tdElement5 = document.createElement('td');
+
+        //Creating an input Element
+        const inputElement = document.createElement('input');
+        inputElement.type='number';
+        inputElement.min = '1';
+        inputElement.max = '10';
+        inputElement.placeholder = 'Quantity';
+        //Displaying the initial quantity of the cart item
+        inputElement.value = product.quantity;
+
+        //Appending inputElement to 5th tdElement
+        tdElement5.appendChild(inputElement);
+        //Appending 5th<td> element to <tr>
+        tableRow.appendChild(tdElement5);
+
+        //Creating 6th <td> Element
+        const tdElement6 = document.createElement('td');
+
+        //Subtotal
+        const priceValue = parseFloat(product.price.replace('$','').trim());
+        const subTotal = '$' + (priceValue * product.quantity).toFixed(2);
+
+        tdElement6.textContent = subTotal;
+        
+
+        //Appending 6th<td> element to <tr>
+        tableRow.appendChild(tdElement6);
+        
+
+        //Appending tableRow to <tbody>
+        tbody.appendChild(tableRow);
+
+    });
+
+
 
 }
 
@@ -48,4 +135,5 @@ function cartItemsDisplay(){
 //Upon page loading
 window.addEventListener('load',()=>{
     cartItemsCountDisplay();       //Display the total no of items in cart upon page load or refresh
+    cartItemsDisplay();            //Displaying all the cart items from localStorage
 });
