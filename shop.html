@@ -25,12 +25,12 @@
                     <li><a href="blog.html">Blog</a></li>
                     <li><a href="about.html">About</a></li>
                     <li><a href="contact.html">Contact</a></li>
-                    <li id="lg-bag"><a href="cart.html"><i class="fa-solid fa-bag-shopping"></i></a></li>
+                    <li id="lg-bag"><a href="cart.html"><i class="fa-solid fa-bag-shopping"></i></a><span id="cart-count" class="cartCount"></span></li>
                     <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
                 </ul>
             </div>
             <div id="mobile">
-                <a href="cart.html"><i class="fa-solid fa-bag-shopping"></i></a>
+                <a href="cart.html"><i class="fa-solid fa-bag-shopping"></i></a><span id="mobile-cart-count" class="cartCount"></span>
                 <i id="bar" class="fa-solid fa-bars"></i>    
             </div>
         </section>
@@ -43,7 +43,7 @@
         <section id="shopMain">
         <section id="product1" class="section-p1"> 
             <div class="pro-container">
-        <!--        <div class="pro">
+        <!--        <div class="proCard">
                     <img src="img/products/f1.jpg" alt="" />
                     <div class="des">
                         <span>adidas</span>
@@ -59,7 +59,7 @@
                     </div>
                     <a href="#"><i class="fa-solid fa-cart-shopping cart"></i></a>
                 </div>
-                <div class="pro">
+                <div class="proCard">
                     <img src="img/products/f2.jpg" alt="" />
                     <div class="des">
                         <span>adidas</span>
@@ -75,7 +75,7 @@
                     </div>
                     <a href="#"><i class="fa-solid fa-cart-shopping cart"></i></a>
                 </div>
-                <div class="pro">
+                <div class="proCard">
                     <img src="img/products/f3.jpg" alt="" />
                     <div class="des">
                         <span>adidas</span>
@@ -91,7 +91,7 @@
                     </div>
                     <a href="#"><i class="fa-solid fa-cart-shopping cart"></i></a>
                 </div>
-                <div class="pro">
+                <div class="proCard">
                     <img src="img/products/f4.jpg" alt="" />
                     <div class="des">
                         <span>adidas</span>
@@ -107,7 +107,7 @@
                     </div>
                     <a href="#"><i class="fa-solid fa-cart-shopping cart"></i></a>
                 </div>
-                <div class="pro">
+                <div class="proCard">
                     <img src="img/products/f5.jpg" alt="" />
                     <div class="des">
                         <span>adidas</span>
@@ -123,7 +123,7 @@
                     </div>
                     <a href="#"><i class="fa-solid fa-cart-shopping cart"></i></a>
                 </div>
-                <div class="pro">
+                <div class="proCard">
                     <img src="img/products/f6.jpg" alt="" />
                     <div class="des">
                         <span>adidas</span>
@@ -139,7 +139,7 @@
                     </div>
                     <a href="#"><i class="fa-solid fa-cart-shopping cart"></i></a>
                 </div>
-                <div class="pro">
+                <div class="proCard">
                     <img src="img/products/f7.jpg" alt="" />
                     <div class="des">
                         <span>adidas</span>
@@ -155,7 +155,7 @@
                     </div>
                     <a href="#"><i class="fa-solid fa-cart-shopping cart"></i></a>
                 </div>
-                <div class="pro">
+                <div class="proCard">
                     <img src="img/products/f8.jpg" alt="" />
                     <div class="des">
                         <span>adidas</span>
@@ -171,7 +171,7 @@
                     </div>
                     <a href="#"><i class="fa-solid fa-cart-shopping cart"></i></a>
                 </div>
-                <div class="pro">
+                <div class="proCard">
                     <img src="img/products/n1.jpg" alt="" />
                     <div class="des">
                         <span>adidas</span>
@@ -187,7 +187,7 @@
                     </div>
                     <a href="#"><i class="fa-solid fa-cart-shopping cart"></i></a>
                 </div>
-                <div class="pro">
+                <div class="proCard">
                     <img src="img/products/n2.jpg" alt="" />
                     <div class="des">
                         <span>adidas</span>
@@ -203,7 +203,7 @@
                     </div>
                     <a href="#"><i class="fa-solid fa-cart-shopping cart"></i></a>
                 </div>
-                <div class="pro">
+                <div class="proCard">
                     <img src="img/products/n3.jpg" alt="" />
                     <div class="des">
                         <span>adidas</span>
@@ -219,7 +219,7 @@
                     </div>
                     <a href="#"><i class="fa-solid fa-cart-shopping cart"></i></a>
                 </div>
-                <div class="pro">
+                <div class="proCard">
                     <img src="img/products/n4.jpg" alt="" />
                     <div class="des">
                         <span>adidas</span>
@@ -235,7 +235,7 @@
                     </div>
                     <a href="#"><i class="fa-solid fa-cart-shopping cart"></i></a>
                 </div>
-                <div class="pro">
+                <div class="proCard">
                     <img src="img/products/n5.jpg" alt="" />
                     <div class="des">
                         <span>adidas</span>
@@ -251,7 +251,7 @@
                     </div>
                     <a href="#"><i class="fa-solid fa-cart-shopping cart"></i></a>
                 </div>
-                <div class="pro">
+                <div class="proCard">
                     <img src="img/products/n6.jpg" alt="" />
                     <div class="des">
                         <span>adidas</span>
@@ -267,7 +267,7 @@
                     </div>
                     <a href="#"><i class="fa-solid fa-cart-shopping cart"></i></a>
                 </div>
-                <div class="pro">
+                <div class="proCard">
                     <img src="img/products/n7.jpg" alt="" />
                     <div class="des">
                         <span>adidas</span>
@@ -283,7 +283,7 @@
                     </div>
                     <a href="#"><i class="fa-solid fa-cart-shopping cart"></i></a>
                 </div>
-                <div class="pro">
+                <div class="proCard">
                     <img src="img/products/n8.jpg" alt="" />
                     <div class="des">
                         <span>adidas</span>
@@ -403,6 +403,7 @@
         </footer>
 
         <script src="script.js" type='module'></script>
+        
 
     </body>
 </html>

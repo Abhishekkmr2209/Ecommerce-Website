@@ -26,12 +26,12 @@
                     <li><a href="blog.html">Blog</a></li>
                     <li><a href="about.html">About</a></li>
                     <li><a class="active" href="contact.html">Contact</a></li>
-                    <li id="lg-bag"><a href="cart.html"><i class="fa-solid fa-bag-shopping"></i></a></li>
+                    <li id="lg-bag"><a href="cart.html"><i class="fa-solid fa-bag-shopping"></i></a><span id="cart-count" class="cartCount"></span></li>
                     <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
                 </ul>
             </div>
             <div id="mobile">
-                <a href="cart.html"><i class="fa-solid fa-bag-shopping"></i></a>
+                <a href="cart.html"><i class="fa-solid fa-bag-shopping"></i></a><span id="mobile-cart-count" class="cartCount"></span>
                 <i id="bar" class="fa-solid fa-bars"></i>    
             </div>
         </section>
@@ -162,9 +162,9 @@
             </div>
         </footer>
 
-        <!-- First smtp script because the other two scripts are dependent on it-->
-        
+        <!-- First smtp script because the other script is dependent on it-->
+        <!-- smtp script has been placed in <head> -->
         <script src="contactForm.js" type="module"></script>
-        <script src="hamburger.js" type="module"></script>
+        
     </body>
 </html>
