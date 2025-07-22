@@ -24,7 +24,7 @@ function cartItemsDisplay(){
 
     //Displaying empty cart message
     if(!cartItems || Object.keys(cartItems).length===0){
-        tbody.innerHTML = `<tr><td colspan="6"><b>Your cart is Empty.</b> </td></tr>`;
+        tbody.innerHTML = `<tr class='empty-cart'><td colspan="6"><b>Your cart is Empty.</b> </td></tr>`;
         return;
     }
 
@@ -33,6 +33,7 @@ function cartItemsDisplay(){
 
         //Create a table row
         const  tableRow = document.createElement('tr');
+        tableRow.id = product.id;
 
         //Creating a remove element 
         const iElement = document.createElement('i');
@@ -118,6 +119,58 @@ function cartItemsDisplay(){
 
 }
 
+//Updating quantity of cartItems by user
+function cartLiveQuantityUpdate(){
+
+    const inputAll =  document.querySelectorAll(`#cart tbody input[type="number"]`);
+    
+    //Adding event listener to each input element
+    inputAll.forEach((inputElement)=>{
+        inputElement.addEventListener('input',()=>{
+            //Total quantity of cartItems after input has been triggered
+            const inputAllUpdated =  document.querySelectorAll(`#cart tbody input[type="number"]`);
+            let totalQuantity = 0;
+            for(let i=0;i<inputAllUpdated.length;i++){
+                totalQuantity += parseInt(inputAllUpdated[i].value); 
+            }
+            
+            //
+            let requiredKey = inputElement.parentNode.parentNode.id;
+            let cartItems = JSON.parse(localStorage.getItem('cartItems'));
+            let initialInputValue = parseInt(cartItems[requiredKey].quantity);
+            
+
+            //Checking if totalQuantity is more than cartItem value of 10
+            if(totalQuantity>10){
+                alert('Cart item max value of 10 exceeded!!!');
+                inputElement.value = initialInputValue;
+            }else{
+              let cartItems = JSON.parse(localStorage.getItem('cartItems'));
+
+              const newQuantity = parseInt(inputElement.value);
+              cartItems[requiredKey].quantity = newQuantity; 
+
+              //  Save the updated cartItems back to localStorage
+              localStorage.setItem('cartItems',JSON.stringify(cartItems));
+
+                
+              const price =  (JSON.parse(localStorage.getItem('cartItems'))[requiredKey].price);
+              const priceValue = parseFloat(price.replace('$','').trim());
+
+              const subTotal = '$' +(priceValue * newQuantity).toFixed(2);
+
+
+              //Accessing the SubTotal Element
+              const subTotalElement = inputElement.parentNode.parentNode.lastElementChild;
+              subTotalElement.textContent = subTotal;
+              
+              
+            }
+        });
+    });
+    
+}
+
 
 //Upon Page refreshing cart items count
     function cartItemsCountDisplay(){
@@ -136,4 +189,5 @@ function cartItemsDisplay(){
 window.addEventListener('load',()=>{
     cartItemsCountDisplay();       //Display the total no of items in cart upon page load or refresh
     cartItemsDisplay();            //Displaying all the cart items from localStorage
+    cartLiveQuantityUpdate();      //Added event listeners to inputElement for live quantity update
 });
