@@ -75,6 +75,7 @@ function displayProducts(currentPage){
         /* proCard Section */
         const proCard = document.createElement('div');
         proCard.classList.add('proCard');
+        proCard.setAttribute('data-product-id',product.id);
         proCard.dataset.proThumbnailDescription =`${product.proThumbnailDescription}`;
 
         proCard.innerHTML = `
@@ -86,7 +87,6 @@ function displayProducts(currentPage){
         <h4>${product.price}</h4>
         </div>
         <a href="#"><i class="fa-solid fa-cart-shopping cart"></i></a>
-        
         
         `;
 
@@ -108,7 +108,15 @@ function displayProducts(currentPage){
         addToCartIcon.addEventListener('click',(e)=>{
             e.preventDefault();
             e.stopPropagation();  //will stop the event from bubbling to parent
-            cartCountDisplay(0);
+            
+            const numberOfItems = localStorage.getItem('numberOfItems');
+            const itemCount = numberOfItems ? parseInt(numberOfItems) : 0;
+            if(itemCount<10){
+            cartCountDisplay(0);  //for adding item quantity to cart
+            cartItems(proCard,1);  //for adding cart items to localStorage
+            }else{
+            alert('You can only add up to 10 items in the cart!!!\nPlease remove some items before adding more.');
+            }
         });
         
     });
@@ -224,8 +232,18 @@ function productThumbnail(proCard){
 
         //Checking validity
         if(form.reportValidity()){
-        cartCountDisplay(count.value); //count.value is the value of input field of type string
-        //cartItems(proCard,count.value); //updating local storage for cart page
+        
+        const quantity = parseInt(count.value); //input value is string 
+        const numberOfItems = localStorage.getItem('numberOfItems');
+        const itemCount = numberOfItems ? parseInt(numberOfItems) : 0;
+        if(itemCount + quantity <=10){
+        
+        cartCountDisplay(quantity); //quantity is the value of input field of type string
+        cartItems(proCard,quantity); //updating local storage with cart items  
+        }else{
+        alert('!!!Maximum cart value of 10 exceeded\nPlease remove some items from your cart.');
+
+        }
         }
     });
 
@@ -233,8 +251,8 @@ function productThumbnail(proCard){
 
 }
     //cartCountDisplay function to display number of products added to cart
-    function cartCountDisplay(count){
-        let input = parseInt(count);
+    function cartCountDisplay(quantity){
+        let input = parseInt(quantity);
         //Assign input value 1 if clicked on the addToCart icon in proCard
         if(input===0){
             input=1;
@@ -246,9 +264,12 @@ function productThumbnail(proCard){
         }else{
         const currNumberOfItems = parseInt(localStorage.getItem('numberOfItems'));
         const totalItems = currNumberOfItems + input;
-
+        
         localStorage.setItem('numberOfItems',totalItems);
-        }
+        
+        
+    }
+        
 
         const cartIcon = document.querySelectorAll('#header span');
         cartIcon.forEach((spanElement)=>{
@@ -258,9 +279,41 @@ function productThumbnail(proCard){
             spanElement.textContent=localStorage.getItem('numberOfItems');
         });
         
-
-
+        
 }
+    //function to update localStorage with cart Items
+    function cartItems(proCard,quantity=1){
+        const productId = proCard.dataset.productId;
+        const productImg = proCard.querySelector('img').src;
+        const productName = proCard.querySelector('.des h5').textContent;
+        const productPrice = proCard.querySelector('.des h4').textContent;
+
+        //Merged the product with quantity
+        const newProduct = {
+            id:productId,
+            img:productImg,
+            name:productName,
+            price:productPrice,
+            quantity:parseInt(quantity)
+        };
+
+        //Get Current Cart
+        let existingCart = localStorage.getItem('cartItems');
+        existingCart = existingCart ? JSON.parse(existingCart) : {} ;
+
+        if(existingCart[productId]){
+            existingCart[productId].quantity += parseInt(quantity);
+        }else{
+            //Add new Product
+            existingCart[productId] = newProduct;
+        }
+
+        //Save updated Cart
+        localStorage.setItem('cartItems',JSON.stringify(existingCart));
+
+
+    }
+
     //Upon Page refreshing cart items count
     function cartItemsCountDisplay(){
         if(!localStorage.getItem('numberOfItems')){
