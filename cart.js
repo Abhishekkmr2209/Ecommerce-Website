@@ -25,6 +25,7 @@ function cartItemsDisplay(){
     
     //Getting the cartItems object
     const cartItems = JSON.parse(localStorage.getItem('cartItems'));
+    
 
     //Displaying empty cart message
     if(!cartItems || Object.keys(cartItems).length===0){
@@ -44,11 +45,44 @@ function cartItemsDisplay(){
         const iElement = document.createElement('i');
         iElement.classList.add('fa-regular','fa-circle-xmark');
 
+        //Attaching event Listener to remove Element
+        iElement.addEventListener('click',(e)=>{
+            e.preventDefault();     //Will prevent the anchorElement action
+
+            //Removing the rowfrom DOM
+            tableRow.remove();
+            
+            //Removing the object key
+            delete cartItems[product.id];
+
+            //Updating localStorage after removal
+            localStorage.setItem('cartItems',JSON.stringify(cartItems));
+            
+
+            //Updating numberOfItems
+            const inputAll = document.querySelectorAll(`#cart tbody input[type='number']`);
+            let totalQuantity=0;
+            inputAll.forEach(input=>{
+                totalQuantity += parseInt(input.value);
+            });
+
+            //Updating localStorage numberOfItems
+            localStorage.setItem('numberOfItems',totalQuantity);
+            updateCartQuantity();
+
+            //If cart becomes empty re-render with empty message
+            if(Object.keys(cartItems).length ===0){
+                cartItemsDisplay();          //Will render cart empty message
+            }
+        });
+
         const anchorElement = document.createElement('a');
         anchorElement.href="#";
 
         //Appending iElement to anchor Element 
         anchorElement.appendChild(iElement);
+
+        
 
 
         //All <td> element will be created
@@ -128,7 +162,7 @@ function cartItemsDisplay(){
 function cartLiveQuantityUpdate(){
 
     const inputAll =  document.querySelectorAll(`#cart tbody input[type="number"]`);
-    let cartItems = JSON.parse(localStorage.getItem('cartItems'));
+    
     
     //Adding event listener to each input element
     inputAll.forEach((inputElement)=>{
@@ -147,7 +181,7 @@ function cartLiveQuantityUpdate(){
             
             //
             let requiredKey = inputElement.closest('tr').id;
-            
+            let cartItems = JSON.parse(localStorage.getItem('cartItems'));
             let initialInputValue = parseInt(cartItems[requiredKey].quantity);
             
 
@@ -175,9 +209,7 @@ function cartLiveQuantityUpdate(){
               subTotalElement.textContent = subTotal;
 
               //Updating bagCount
-              let numberOfItems = localStorage.getItem('numberOfItems');
-              numberOfItems = totalQuantity;
-              localStorage.setItem('numberOfItems',numberOfItems);
+              localStorage.setItem('numberOfItems',totalQuantity);
 
               //To display the updated Bag Count
               updateCartQuantity();
