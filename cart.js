@@ -19,12 +19,17 @@ if(close){
 function cartItemsDisplay(){
     const tbody = document.querySelector('#cart tbody');  //Accessing <tbody> element 
 
+    //Clearing  tbody to avoid duplication
+    tbody.innerHTML = '';
+    const thead = document.querySelector('#cart thead');  //Accessing <thead> element for current column count
+    
     //Getting the cartItems object
     const cartItems = JSON.parse(localStorage.getItem('cartItems'));
 
     //Displaying empty cart message
     if(!cartItems || Object.keys(cartItems).length===0){
-        tbody.innerHTML = `<tr class='empty-cart'><td colspan="6"><b>Your cart is Empty.</b> </td></tr>`;
+        const totalColumns = thead.querySelector('tr').children.length;
+        tbody.innerHTML = `<tr class='empty-cart'><td colspan="${totalColumns}"><b>Your cart is Empty.</b> </td></tr>`;
         return;
     }
 
@@ -123,10 +128,16 @@ function cartItemsDisplay(){
 function cartLiveQuantityUpdate(){
 
     const inputAll =  document.querySelectorAll(`#cart tbody input[type="number"]`);
+    let cartItems = JSON.parse(localStorage.getItem('cartItems'));
     
     //Adding event listener to each input element
     inputAll.forEach((inputElement)=>{
         inputElement.addEventListener('input',()=>{
+            //If user presses backspace 
+            if(!inputElement.value){
+                inputElement.value=1;
+            }
+
             //Total quantity of cartItems after input has been triggered
             const inputAllUpdated =  document.querySelectorAll(`#cart tbody input[type="number"]`);
             let totalQuantity = 0;
@@ -135,8 +146,8 @@ function cartLiveQuantityUpdate(){
             }
             
             //
-            let requiredKey = inputElement.parentNode.parentNode.id;
-            let cartItems = JSON.parse(localStorage.getItem('cartItems'));
+            let requiredKey = inputElement.closest('tr').id;
+            
             let initialInputValue = parseInt(cartItems[requiredKey].quantity);
             
 
@@ -145,8 +156,7 @@ function cartLiveQuantityUpdate(){
                 alert('Cart item max value of 10 exceeded!!!');
                 inputElement.value = initialInputValue;
             }else{
-              let cartItems = JSON.parse(localStorage.getItem('cartItems'));
-
+              
               const newQuantity = parseInt(inputElement.value);
               cartItems[requiredKey].quantity = newQuantity; 
 
@@ -154,21 +164,37 @@ function cartLiveQuantityUpdate(){
               localStorage.setItem('cartItems',JSON.stringify(cartItems));
 
                 
-              const price =  (JSON.parse(localStorage.getItem('cartItems'))[requiredKey].price);
+              const price = cartItems[requiredKey].price;
               const priceValue = parseFloat(price.replace('$','').trim());
 
               const subTotal = '$' +(priceValue * newQuantity).toFixed(2);
 
 
               //Accessing the SubTotal Element
-              const subTotalElement = inputElement.parentNode.parentNode.lastElementChild;
+              const subTotalElement = inputElement.closest('tr').querySelector('td:last-child');
               subTotalElement.textContent = subTotal;
-              
+
+              //Updating bagCount
+              let numberOfItems = localStorage.getItem('numberOfItems');
+              numberOfItems = totalQuantity;
+              localStorage.setItem('numberOfItems',numberOfItems);
+
+              //To display the updated Bag Count
+              updateCartQuantity();
+             
               
             }
         });
     });
     
+}
+//Updating cart numberOfItems
+function updateCartQuantity(){
+    const cartIcon = document.querySelectorAll('#header span');
+    cartIcon.forEach((spanElement)=>{
+    spanElement.textContent=localStorage.getItem('numberOfItems');
+    });
+              
 }
 
 
