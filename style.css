@@ -1417,6 +1417,10 @@ footer .copyright{
     }
 
     /* Cart Page */
+    #cart table tbody tr.empty-cart td {
+    text-align:start;
+    
+    }
     #cart-add {
     flex-direction:column;
     }
