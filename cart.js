@@ -31,6 +31,12 @@ function cartItemsDisplay(){
     if(!cartItems || Object.keys(cartItems).length===0){
         const totalColumns = thead.querySelector('tr').children.length;
         tbody.innerHTML = `<tr class='empty-cart'><td colspan="${totalColumns}"><b>Your cart is Empty.</b> </td></tr>`;
+
+       // Updating spanElement to hide the countDisplay on the cart icon
+        const cartIcon = document.querySelectorAll('#header span');
+        cartIcon.forEach((spanElement)=>{
+        spanElement.classList.add('cartCount');
+        });
         return;
     }
 
@@ -48,7 +54,10 @@ function cartItemsDisplay(){
         //Attaching event Listener to remove Element
         iElement.addEventListener('click',(e)=>{
             e.preventDefault();     //Will prevent the anchorElement action
-
+            
+            //Accessing updated localStorage
+            const cartItems = JSON.parse(localStorage.getItem('cartItems'));
+            
             //Removing the rowfrom DOM
             tableRow.remove();
             
@@ -162,6 +171,9 @@ function cartItemsDisplay(){
 function cartLiveQuantityUpdate(){
 
     const inputAll =  document.querySelectorAll(`#cart tbody input[type="number"]`);
+    if(!inputAll){
+        return;
+    }
     
     
     //Adding event listener to each input element
@@ -216,6 +228,7 @@ function cartLiveQuantityUpdate(){
              
               
             }
+            
         });
     });
     
@@ -229,13 +242,50 @@ function updateCartQuantity(){
               
 }
 
+//Clear Cart functionality
+function clearCart(){
+    const emptyCartButton = document.querySelector('.empty-cart-container button.emptyCart');
+    const modalBackdrop = document.querySelector('.empty-cart-container .modal-backdrop');
+    const yesBtn = document.querySelector('.empty-cart-container .modal-backdrop .yesButton');
+    const noBtn = document.querySelector('.empty-cart-container .modal-backdrop .noButton');
+
+    //Clear Cart button event listener
+    emptyCartButton.addEventListener('click',()=>{
+        modalBackdrop.classList.remove('hidden');
+        document.body.classList.add('modal-open');
+    });
+
+    //Adding event Listener to NO button
+    noBtn.addEventListener('click',()=>{
+        modalBackdrop.classList.add('hidden');
+        document.body.classList.remove('modal-open');
+    });
+
+    //Adding event listener to YES button
+    yesBtn.addEventListener('click',()=>{
+        localStorage.clear();          // Clear the localStorage of all the quantity and item values
+        cartItemsCountDisplay();
+        cartItemsDisplay();
+        cartLiveQuantityUpdate();
+
+        modalBackdrop.classList.add('hidden');
+        document.body.classList.remove('modal-open');
+
+    });
+
+
+}
+
 
 //Upon Page refreshing cart items count
     function cartItemsCountDisplay(){
-        if(!localStorage.getItem('numberOfItems')){
-            //Do nothing
+        const cartIcon = document.querySelectorAll('#header span');
+        if(!localStorage.getItem('numberOfItems') || localStorage.getItem('numberOfItems')==='0'){
+            cartIcon.forEach((spanElement)=>{
+                spanElement.classList.add('cartCount');
+            });
         }else{
-            const cartIcon = document.querySelectorAll('#header span');
+            
             cartIcon.forEach((spanElement)=>{
             spanElement.classList.remove('cartCount');
             spanElement.textContent=localStorage.getItem('numberOfItems');
@@ -248,4 +298,5 @@ window.addEventListener('load',()=>{
     cartItemsCountDisplay();       //Display the total no of items in cart upon page load or refresh
     cartItemsDisplay();            //Displaying all the cart items from localStorage
     cartLiveQuantityUpdate();      //Added event listeners to inputElement for live quantity update
+    clearCart();                   //Event Listeners and modals
 });
