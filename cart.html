@@ -84,8 +84,17 @@
             </table>
         </section>
 
-        <section class="empty-cart-button section-p1">
+        <section class="empty-cart-container section-p1">
             <button class="emptyCart normal">Clear Cart</button>
+            <div class="modal-backdrop hidden">
+            <div class="modal-cart modal-pop">
+                <h3 >Are you sure?</h3>
+                <div class="optionButton">
+                    <button class="yesButton normal">Yes</button>
+                    <button class="noButton normal">No</button>
+                </div>
+            </div>
+            </div>
         </section>
 
         <section id="cart-add" class="section-p1">
@@ -99,7 +108,7 @@
             <div id="subtotal">
                 <h3>Cart Totals</h3>
                 <table>
-                    <tr>
+                    <tr id="subTotalRow">
                         <td>Cart Subtotal</td>
                         <td>$0</td>
                     </tr>
@@ -107,7 +116,7 @@
                         <td>Shipping</td>
                         <td>Free</td>
                     </tr>
-                    <tr>
+                    <tr id="totalRow">
                         <td><strong>Total</strong></td>
                         <td><strong>$0</strong></td>
                     </tr>
