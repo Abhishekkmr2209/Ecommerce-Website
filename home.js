@@ -14,6 +14,13 @@ if(close){
         nav.classList.remove('active');
     })
 }
+//Shop Now Button event Listener
+function shopNow(){
+    const shopNowButton = document.querySelector('#hero button');
+    shopNowButton.addEventListener('click',()=>{
+        window.location.href ='shop.html';
+    });
+}
 
 //Upon Page refreshing cart items count
     function cartItemsCountDisplay(){
@@ -34,4 +41,5 @@ if(close){
 //Upon page loading
 window.addEventListener('load',()=>{
     cartItemsCountDisplay();       //Display the total no of items in cart upon page load or refresh
+    shopNow();
 });
