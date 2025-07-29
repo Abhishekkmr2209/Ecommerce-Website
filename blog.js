@@ -162,12 +162,28 @@ function displayBlog(currentPage,perPage){
 
     
 }
+//Upon Page refreshing cart items count
+    function cartItemsCountDisplay(){
+        const cartIcon = document.querySelectorAll('#header span');
+        if(!localStorage.getItem('numberOfItems') || localStorage.getItem('numberOfItems')==='0'){
+            cartIcon.forEach((spanElement)=>{
+                spanElement.classList.add('cartCount');
+            });
+        }else{
+            
+            cartIcon.forEach((spanElement)=>{
+            spanElement.classList.remove('cartCount');
+            spanElement.textContent=localStorage.getItem('numberOfItems');
+        });
+        }
+    }
 
 
 
 window.addEventListener('load',()=>{
     pagination();
     displayBlog(1, 5);
+    cartItemsCountDisplay();    //Display the number of items in cart on page load or refresh
 });
 
 

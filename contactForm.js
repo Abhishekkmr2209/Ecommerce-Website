@@ -1,4 +1,21 @@
+/* Hamburger Menu */
 
+const bar = document.getElementById('bar');
+const nav = document.getElementById('navbar');
+const close = document.getElementById('close');
+
+if(bar){
+    bar.addEventListener('click', () => {
+        nav.classList.add('active');
+    })
+}
+if(close){
+    close.addEventListener('click', () => {
+        nav.classList.remove('active');
+    })
+}
+
+//Creating form 
 function formDevelopment(){
     const formDetails = document.querySelector('#form-details');
     const peopleDiv = document.querySelector('.people');
@@ -157,9 +174,26 @@ function sendAutoReply(email, name, message) {
         alert("Network or CORS error in auto-reply");
     });
 }
+//Upon Page refreshing cart items count
+    function cartItemsCountDisplay(){
+        const cartIcon = document.querySelectorAll('#header span');
+        if(!localStorage.getItem('numberOfItems') || localStorage.getItem('numberOfItems')==='0'){
+            cartIcon.forEach((spanElement)=>{
+                spanElement.classList.add('cartCount');
+            });
+        }else{
+            
+            cartIcon.forEach((spanElement)=>{
+            spanElement.classList.remove('cartCount');
+            spanElement.textContent=localStorage.getItem('numberOfItems');
+        });
+        }
+    }
+
 
 
 //On window loading
 window.addEventListener('load',()=>{
     formDevelopment();
+    cartItemsCountDisplay();    //Display the total no of items in cart upon page load or refresh
 });

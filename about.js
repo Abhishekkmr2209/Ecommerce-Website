@@ -16,10 +16,13 @@ if(close){
 }
 //Upon Page refreshing cart items count
     function cartItemsCountDisplay(){
-        if(!localStorage.getItem('numberOfItems')){
-            //Do nothing
+        const cartIcon = document.querySelectorAll('#header span');
+        if(!localStorage.getItem('numberOfItems') || localStorage.getItem('numberOfItems')==='0'){
+            cartIcon.forEach((spanElement)=>{
+                spanElement.classList.add('cartCount');
+            });
         }else{
-            const cartIcon = document.querySelectorAll('#header span');
+            
             cartIcon.forEach((spanElement)=>{
             spanElement.classList.remove('cartCount');
             spanElement.textContent=localStorage.getItem('numberOfItems');
