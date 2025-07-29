@@ -28,16 +28,16 @@ const products = [
     },
     {
         id:4,
-        img:'img/products/n1.jpg',
+        img:'img/products/f4.jpg',
         brand:'Peter England',
-        productName:'Formal Shirt',
+        productName:'Pattern Printed T-Shirt',
         price:'$18',
         star:3,
         proThumbnailDescription:`Add sophistication to your casual wardrobe with this Peter England Polo, crafted from premium 100% cotton pique. The breathable fabric, ribbed collar, and iconic flag logo make this a polished yet comfortable option for any day of the week.`
     },
     {
         id:5,
-        img:'img/products/n3.jpg',
+        img:'img/products/f5.jpg',
         brand:'Armani',
         productName:'Flipper Trends',
         price:'$70',
@@ -46,9 +46,9 @@ const products = [
     },
     {
         id:6,
-        img:'img/products/n5.jpg',
+        img:'img/products/f6.jpg',
         brand:'Puma',
-        productName:'Blue Formals',
+        productName:'Multi-colored Shirt',
         price:'$35',
         star:2,
         proThumbnailDescription:`Crafted from fine poplin cotton, this Puma shirt provides a sharp look with clean lines and stretch comfort. The slim-fit silhouette and muted color palette make it an essential choice for office-ready wardrobes.`
@@ -82,7 +82,7 @@ const products = [
     },
     {
         id:10,
-        img:'img/products/n5.jpg',
+        img:'img/products/n2.jpg',
         brand:'Louis Phillipe',
         productName:'Shirts Trimmed',
         price:'$24',
@@ -91,7 +91,7 @@ const products = [
     },
     {
         id:11,
-        img:'img/products/f1.jpg',
+        img:'img/products/n3.jpg',
         brand:'Nike',
         productName:'Summer T Shirts',
         price:'$36',
@@ -100,7 +100,7 @@ const products = [
     },
     {
         id:12,
-        img:'img/products/f2.jpg',
+        img:'img/products/n4.jpg',
         brand:'Pawshop',
         productName:'Paws T-Shirts',
         price:'$45',
@@ -109,7 +109,7 @@ const products = [
     },
     {
         id:13,
-        img:'img/products/n4.jpg',
+        img:'img/products/n5.jpg',
         brand:'US Polo',
         productName:'Beaming Pattern Shirt',
         price:'$18',
@@ -118,27 +118,27 @@ const products = [
     },
     {
         id:14,
-        img:'img/products/f5.jpg',
+        img:'img/products/n6.jpg',
         brand:'UCB',
-        productName:'Shirts All-Weather',
+        productName:'Trunks',
         price:'$36',
         star:5,
         proThumbnailDescription:`Made from 100% ring-spun cotton, this UCB Softstyle tee offers a lighter, softer feel perfect for everyday wear. With a modern classic fit, double-needle stitched sleeves, and a tear-away label, it’s designed for style and comfort in equal measure.`
     },
     {
         id:15,
-        img:'img/products/f8.jpg',
+        img:'img/products/n7.jpg',
         brand:'Zara',
-        productName:'Summer Lightwear',
+        productName:'Golden Hoody',
         price:'$36',
         star:3,
         proThumbnailDescription:`This lightweight Zara tee, made from sustainably sourced cotton, features subtle prints and a semi-fitted design. Its short sleeves, soft texture, and contemporary aesthetic make it a wardrobe essential for seasonal transitions.`
     },
     {
         id:16,
-        img:'img/products/n3.jpg',
+        img:'img/products/n8.jpg',
         brand:'Van Huesen',
-        productName:'T Shirts',
+        productName:'Black Half Shirts',
         price:'$50',
         star:4,
         proThumbnailDescription:`Crafted from fine poplin cotton, this Van Heusen shirt provides a sharp look with clean lines and stretch comfort. The slim-fit silhouette and muted color palette make it an essential choice for office-ready wardrobes.`
