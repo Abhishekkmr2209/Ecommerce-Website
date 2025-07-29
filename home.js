@@ -375,4 +375,4 @@ window.addEventListener('load',()=>{
     shopNow();
     displayProductCardsFeatured();  //Display the Featured proCards 
     displayProductCardsNewArrival();//Display the new Arrivals
-});
+}); 
