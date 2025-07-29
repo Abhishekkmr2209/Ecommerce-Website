@@ -83,6 +83,8 @@ function cartItemsDisplay(){
             if(Object.keys(cartItems).length ===0){
                 cartItemsDisplay();          //Will render cart empty message
             }
+            subTotalCartValue();             //Will render the updated cart Value
+
         });
 
         const anchorElement = document.createElement('a');
@@ -225,7 +227,9 @@ function cartLiveQuantityUpdate(){
 
               //To display the updated Bag Count
               updateCartQuantity();
-             
+              
+              //Updating the subTotal Cart Value
+              subTotalCartValue();
               
             }
             
@@ -233,8 +237,40 @@ function cartLiveQuantityUpdate(){
     });
     
 }
-//Updating cart numberOfItems
-function updateCartQuantity(){
+
+//Function to provide subTotal
+function subTotalCartValue(){
+
+    //Accessing the subTotal td Element
+    const cartSubtotalValue = document.querySelector('#subTotalRow td:nth-child(2)');
+    const cartTotalValue = document.querySelector('#totalRow td:nth-child(2)');
+
+    const cartItems =  JSON.parse(localStorage.getItem('cartItems'));
+    let subTotalValue = 0;
+
+    //Checking against null
+    if (!cartItems || Object.keys(cartItems).length === 0) {
+        cartSubtotalValue.textContent = '$0.00';
+        cartTotalValue.textContent = '$0.00';
+        return;
+    }
+    
+    //Calculating Subtotal based on localStorage 
+    Object.values(cartItems).forEach((product)=>{
+        const productPrice = parseFloat(product.price.replace('$','').trim());
+        subTotalValue +=  (productPrice * product.quantity);
+    });
+
+    //Formatted subTotalValue
+    subTotalValue = '$' + subTotalValue.toFixed(2);
+
+    cartSubtotalValue.textContent = subTotalValue;
+    cartTotalValue.textContent = subTotalValue;
+
+}
+
+    //Updating cart numberOfItems
+    function updateCartQuantity(){
     const cartIcon = document.querySelectorAll('#header span');
     cartIcon.forEach((spanElement)=>{
     spanElement.textContent=localStorage.getItem('numberOfItems');
@@ -249,10 +285,19 @@ function clearCart(){
     const yesBtn = document.querySelector('.empty-cart-container .modal-backdrop .yesButton');
     const noBtn = document.querySelector('.empty-cart-container .modal-backdrop .noButton');
 
+    
+
     //Clear Cart button event listener
     emptyCartButton.addEventListener('click',()=>{
+        const cartItems = JSON.parse(localStorage.getItem('cartItems'));
+        const numberOfItems = localStorage.getItem('numberOfItems');
+        if (!cartItems || Object.keys(cartItems).length === 0 || numberOfItems === "0"){
+            alert('Cart is already empty,\nTry adding some items.');
+            
+        }else{
         modalBackdrop.classList.remove('hidden');
         document.body.classList.add('modal-open');
+        }
     });
 
     //Adding event Listener to NO button
@@ -267,6 +312,7 @@ function clearCart(){
         cartItemsCountDisplay();
         cartItemsDisplay();
         cartLiveQuantityUpdate();
+        subTotalCartValue();
 
         modalBackdrop.classList.add('hidden');
         document.body.classList.remove('modal-open');
@@ -299,4 +345,5 @@ window.addEventListener('load',()=>{
     cartItemsDisplay();            //Displaying all the cart items from localStorage
     cartLiveQuantityUpdate();      //Added event listeners to inputElement for live quantity update
     clearCart();                   //Event Listeners and modals
+    subTotalCartValue();           //Displaying the subTotal of all the items in cart 
 });
