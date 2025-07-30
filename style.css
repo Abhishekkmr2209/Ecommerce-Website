@@ -1284,7 +1284,7 @@ body.modal-open{
     z-index:1000;
 }
 .empty-cart-container .modal-cart {
-    background: white;
+    background: #fff;
     padding: 20px 30px;
     border-radius: 8px;
     box-shadow: 0 0 15px rgba(0,0,0,0.3);
@@ -1306,6 +1306,49 @@ body.modal-open{
 .empty-cart-container .modal-backdrop.hidden{
     display:none;
 }
+
+/* Style for modal-backdrop-ckeckout */
+#cart-add .modal-backdrop-checkout.hidden{
+    display:none;
+}
+#cart-add .modal-backdrop-checkout{
+    position:fixed;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    background-color:#121a24;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:1000;
+}
+#cart-add .modal-checkout{
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    z-index: 1001;
+    text-align: center;
+}
+#cart-add .modal-checkout h2{
+    color: #fefefe;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+}
+#cart-add .modal-checkout h4{
+    color: rgba(200, 200, 200, 0.75);
+}
+#cart-add .modal-checkout button{
+    color:#fff;
+    background-color:#00897b;
+    margin:20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
+}
+#cart-add .modal-checkout button:hover{
+    background-color: #00695c;
+    transform:scale(1.1);
+}
+
 
 
 
