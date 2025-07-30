@@ -321,6 +321,40 @@ function clearCart(){
 
 
 }
+//Buy Now functionality
+function buyNow(){
+    const buyNowButton = document.querySelector('#cart-add #subtotal button');
+    const modalBackdropCheckout = document.querySelector('#cart-add .modal-backdrop-checkout');
+    const continueShoppingButton = document.querySelector('#cart-add .modal-checkout button');
+    
+    //Adding event listener to buyNowButton
+    buyNowButton.addEventListener('click',()=>{
+        const cartItems = JSON.parse(localStorage.getItem('cartItems'));
+        const numberOfItems = localStorage.getItem('numberOfItems');
+        if (!cartItems || Object.keys(cartItems).length === 0 || numberOfItems === "0"){
+            alert('Cart is empty,\nTry adding some items first.');
+            
+        }else{
+        modalBackdropCheckout.classList.remove('hidden');
+        document.body.classList.add('modal-open');
+        }
+    });
+
+    //ContinueShoppingButton event listener
+    continueShoppingButton.addEventListener('click',()=>{
+        localStorage.clear();          // Clear the localStorage of all the quantity and item values
+        cartItemsCountDisplay();
+        cartItemsDisplay();
+        cartLiveQuantityUpdate();
+        subTotalCartValue();
+
+        //Closing the modal
+        modalBackdropCheckout.classList.add('hidden');
+        document.body.classList.remove('modal-open');
+        
+    });
+
+}
 
 
 //Upon Page refreshing cart items count
@@ -346,4 +380,5 @@ window.addEventListener('load',()=>{
     cartLiveQuantityUpdate();      //Added event listeners to inputElement for live quantity update
     clearCart();                   //Event Listeners and modals
     subTotalCartValue();           //Displaying the subTotal of all the items in cart 
+    buyNow();                      //Event Listeners and modals on  Buy Now 
 });
