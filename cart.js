@@ -181,16 +181,18 @@ function cartLiveQuantityUpdate(){
     //Adding event listener to each input element
     inputAll.forEach((inputElement)=>{
         inputElement.addEventListener('input',()=>{
-            //If user presses backspace 
-            if(!inputElement.value){
-                inputElement.value=1;
-            }
+            
 
             //Total quantity of cartItems after input has been triggered
             const inputAllUpdated =  document.querySelectorAll(`#cart tbody input[type="number"]`);
             let totalQuantity = 0;
             for(let i=0;i<inputAllUpdated.length;i++){
+                //If user pressed backspace 
+                if(!inputAllUpdated[i].value || isNaN(inputAllUpdated[i].value)){
+                totalQuantity += 0; 
+                }else{
                 totalQuantity += parseInt(inputAllUpdated[i].value); 
+                }
             }
             
             //
@@ -205,7 +207,11 @@ function cartLiveQuantityUpdate(){
                 inputElement.value = initialInputValue;
             }else{
               
-              const newQuantity = parseInt(inputElement.value);
+              let newQuantity = parseInt(inputElement.value);
+              if(isNaN(newQuantity) || !newQuantity){
+                newQuantity=0;
+              }
+             
               cartItems[requiredKey].quantity = newQuantity; 
 
               //  Save the updated cartItems back to localStorage
@@ -234,6 +240,64 @@ function cartLiveQuantityUpdate(){
             }
             
         });
+        
+        //Adding another event listener to  address the backspace done by user, on loosing focus it will change to 1 
+        inputElement.addEventListener('blur', () => {
+        //If the inputElement Value is 1 or more than 1
+        if(parseInt(inputElement.value)>0){
+            //Nothing to do
+            return;
+        }
+        if (!inputElement.value || isNaN(inputElement.value) || inputElement.value==='0') {
+            if(parseInt(localStorage.getItem('numberOfItems'))=== 10){
+                inputElement.value=0;
+                return;
+            }else{
+            inputElement.value = 1;
+            }
+        }
+        //Total quantity of cartItems after input has been triggered
+            const inputAllUpdated =  document.querySelectorAll(`#cart tbody input[type="number"]`);
+            let totalQuantity = 0;
+            for(let i=0;i<inputAllUpdated.length;i++){
+                totalQuantity += parseInt(inputAllUpdated[i].value); 
+                
+            }
+            
+            //
+            let requiredKey = inputElement.closest('tr').id;
+            let cartItems = JSON.parse(localStorage.getItem('cartItems'));
+            
+            let newQuantity = parseInt(inputElement.value);
+              
+             
+            cartItems[requiredKey].quantity = newQuantity; 
+
+              //  Save the updated cartItems back to localStorage
+              localStorage.setItem('cartItems',JSON.stringify(cartItems));
+
+                
+              const price = cartItems[requiredKey].price;
+              const priceValue = parseFloat(price.replace('$','').trim());
+
+              const subTotal = '$' +(priceValue * newQuantity).toFixed(2);
+
+
+              //Accessing the SubTotal Element
+              const subTotalElement = inputElement.closest('tr').querySelector('td:last-child');
+              subTotalElement.textContent = subTotal;
+
+              //Updating bagCount
+              localStorage.setItem('numberOfItems',totalQuantity);
+
+              //To display the updated Bag Count
+              updateCartQuantity();
+              
+              //Updating the subTotal Cart Value
+              subTotalCartValue();
+              
+            });
+
     });
     
 }
