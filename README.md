@@ -1,7 +1,7 @@
 # Ecommerce-Website
 # Cara – E-Commerce Website (Frontend Project)
 
-Welcome to **Cara**, a fully responsive and dynamic e-commerce website designed to showcase front-end development skills using **HTML**, **CSS**,**JavaScript**, and **API Integration**.
+Welcome to **Cara**, a fully responsive and dynamic e-commerce website designed to showcase front-end development skills using **HTML**, **CSS**, **JavaScript**, and **API Integration**.
 
 This project simulates a real-world shopping platform with features commonly found in modern online stores, including dynamic product handling, interactive UI components,responsiveness and clean modular code.
 
